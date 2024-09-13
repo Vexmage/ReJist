@@ -2,20 +2,37 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleTodo, deleteTodo, updateJist } from '../actions';
 
-const TodoItem = ({ todo }) => {
+const TodoItem = ({ todo, setTodos }) => {
   const dispatch = useDispatch();
 
-  const [showJist, setShowJist] = useState(false);
-  const [isEditingJist, setIsEditingJist] = useState(false);
-  const [jistValue, setJistValue] = useState(todo.jist || '');
+  const [showJist, setShowJist] = useState(false); // State to toggle Jist visibility
+  const [isEditingJist, setIsEditingJist] = useState(false); // State to toggle Jist editing
+  const [jistValue, setJistValue] = useState(todo.jist || ''); // State to hold current Jist value
 
+  // Check if task is overdue
   const isOverdue = todo.dueDate && new Date(todo.dueDate) < new Date() && !todo.completed;
   const dueDateStyle = isOverdue ? { color: 'red' } : { color: 'green' };
 
-
+  // Handle updating the Jist
   const handleUpdateJist = () => {
-    dispatch(updateJist(todo.id, jistValue));
-    setIsEditingJist(false);
+    dispatch(updateJist(todo.id, jistValue)); // Dispatch action to update Jist in Redux
+    setIsEditingJist(false); // Exit edit mode
+  };
+
+  // Toggle complete status
+  const toggleComplete = () => {
+    setTodos((prevTodos) =>
+      prevTodos.map((t) =>
+        t.id === todo.id ? { ...t, completed: !t.completed } : t
+      )
+    );
+    dispatch(toggleTodo(todo.id)); // Ensure Redux state is updated
+  };
+
+  // Handle delete
+  const deleteTodoItem = () => {
+    setTodos((prevTodos) => prevTodos.filter((t) => t.id !== todo.id));
+    dispatch(deleteTodo(todo.id)); // Ensure Redux state is updated
   };
 
   return (
@@ -25,10 +42,10 @@ const TodoItem = ({ todo }) => {
           {todo.text}
         </span>
         <div>
-          <button className="btn btn-outline-success btn-sm" onClick={() => dispatch(toggleTodo(todo.id))}>
+          <button className="btn btn-outline-success btn-sm" onClick={toggleComplete}>
             {todo.completed ? 'Uncomplete' : 'Complete'}
           </button>
-          <button className="btn btn-outline-danger btn-sm" onClick={() => dispatch(deleteTodo(todo.id))}>
+          <button className="btn btn-outline-danger btn-sm" onClick={deleteTodoItem}>
             Delete
           </button>
           <button className="btn btn-outline-info btn-sm" onClick={() => setShowJist(!showJist)}>
@@ -40,8 +57,8 @@ const TodoItem = ({ todo }) => {
       {/* Due Date Section */}
       {todo.dueDate && (
         <div style={dueDateStyle}>
-          Due: {new Date(todo.dueDate).toLocaleDateString()} 
-          {isOverdue && <strong> (Overdue)</strong>} {/* Show "Overdue" if the task is past the due date */}
+          Due: {new Date(todo.dueDate).toLocaleDateString()}
+          {isOverdue && <strong> (Overdue)</strong>}
         </div>
       )}
 

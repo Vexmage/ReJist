@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addTodo } from '../actions';
 
-const AddTodo = () => {
+const AddTodo = ({ todos, setTodos }) => {
   const [text, setText] = useState('');
   const [dueDate, setDueDate] = useState('');
-  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim()) {
-      dispatch(addTodo(text, dueDate));
+      const newTodo = {
+        id: Date.now(), // Unique ID based on current time
+        text,
+        dueDate,
+        completed: false,
+      };
+      setTodos([...todos, newTodo]); // Add the new task to the todos list
       setText('');
       setDueDate('');
     }
@@ -28,7 +31,7 @@ const AddTodo = () => {
         />
       </div>
       <div className="input-group mb-3">
-      <input
+        <input
           type="date"
           className="form-control"
           value={dueDate}
@@ -36,10 +39,9 @@ const AddTodo = () => {
         />
       </div>
 
-        <button type="submit" className="btn btn-primary">
-          Add Todo
-        </button>
-
+      <button type="submit" className="btn btn-primary">
+        Add Todo
+      </button>
     </form>
   );
 };

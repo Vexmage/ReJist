@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+
 import TodoItem from './TodoItem';
 
-const TodoList = () => {
-  const todos = useSelector(state => state.todos);
+
+const TodoList = ({ todos, setTodos }) => {
   const [isSorted, setIsSorted] = useState(false); // State to control sorting
 
   if (!todos || todos.length === 0) {
@@ -31,11 +31,10 @@ const TodoList = () => {
       </button>
       <ul className="list-group">
         {displayedTodos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
+          <TodoItem key={todo.id} todo={todo} setTodos={setTodos} />
         ))}
       </ul>
     </div>
   );
 };
-
 export default TodoList;

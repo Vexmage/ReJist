@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import AddTodo from './components/AddTodo';
 import TodoList from './components/TodoList';
+import { loadTodosFromLocalStorage, saveTodosToLocalStorage } from './storage/localStorage';
 
 function App() {
+  const [todos, setTodos] = useState(() => {
+    // Load todos from localStorage when the app initializes
+    return loadTodosFromLocalStorage();
+  });
+
+  // Save todos to localStorage whenever they change
+  useEffect(() => {
+    saveTodosToLocalStorage(todos);
+  }, [todos]);
+
   const appStyle = {
     backgroundImage: `url(${process.env.PUBLIC_URL + '/background.jpg'})`,
     backgroundSize: 'cover',
@@ -34,11 +45,11 @@ function App() {
   return (
     <div style={appStyle} className="app-container">
       <header>
-        <h1 style={headerStyle}>ReJist</h1> {/* Apply the header style */}
+        <h1 style={headerStyle}>ReJist</h1>
       </header>
       <main>
-        <AddTodo />
-        <TodoList />
+        <AddTodo todos={todos} setTodos={setTodos} />
+        <TodoList todos={todos} setTodos={setTodos} />
       </main>
     </div>
   );
