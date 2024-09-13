@@ -1,12 +1,9 @@
-import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from '../actions';
+import { ADD_TODO, TOGGLE_TODO, DELETE_TODO, UPDATE_JIST } from '../actions';
 
-// Initial state
 const initialState = {
-    todos: []
-  };
-  
+  todos: []
+};
 
-// Reducer function
 const todosReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO:
@@ -14,7 +11,7 @@ const todosReducer = (state = initialState, action) => {
         ...state,
         todos: [
           ...state.todos,
-          { id: Date.now(), text: action.payload, completed: false }
+          { id: Date.now(), text: action.payload, completed: false, jist: '' } // Add default empty jist
         ]
       };
     case TOGGLE_TODO:
@@ -28,6 +25,13 @@ const todosReducer = (state = initialState, action) => {
       return {
         ...state,
         todos: state.todos.filter(todo => todo.id !== action.payload)
+      };
+    case UPDATE_JIST:
+      return {
+        ...state,
+        todos: state.todos.map(todo =>
+          todo.id === action.payload.id ? { ...todo, jist: action.payload.jist } : todo
+        )
       };
     default:
       return state;
