@@ -45,7 +45,7 @@ function App() {
   return (
     <div style={appStyle} className="app-container">
       <header>
-        <h1 style={headerStyle}>ReJist</h1>
+        <h1 style={headerStyle}>ReJist To-do App</h1>
       </header>
       <main>
         <AddTodo todos={todos} setTodos={setTodos} />
