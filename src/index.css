@@ -1,0 +1,23 @@
+body {
+  padding: 20px;
+}
+
+h1 {
+  font-family: 'Arial', sans-serif;
+  color: #007bff;
+}
+
+ul.list-group {
+  margin-top: 20px;
+}
+
+li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  margin-left: 10px;
+}

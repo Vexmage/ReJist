@@ -9,22 +9,25 @@ const AddTodo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim()) {
-      console.log('Adding todo:', text);  // Check if this logs when submitting
       dispatch(addTodo(text));
       setText('');
     }
   };
-  
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Add a new to-do"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <button type="submit">Add Todo</button>
+    <form onSubmit={handleSubmit} className="mb-4">
+      <div className="input-group">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Add a new to-do"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <button type="submit" className="btn btn-primary">
+          Add Todo
+        </button>
+      </div>
     </form>
   );
 };

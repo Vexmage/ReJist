@@ -6,18 +6,20 @@ const TodoItem = ({ todo }) => {
   const dispatch = useDispatch();
 
   return (
-    <li>
+    <li className={`list-group-item ${todo.completed ? 'list-group-item-success' : ''}`}>
       <span
-        style={{
-          textDecoration: todo.completed ? 'line-through' : 'none'
-        }}
+        style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
       >
         {todo.text}
       </span>
-      <button onClick={() => dispatch(toggleTodo(todo.id))}>
-        {todo.completed ? 'Uncomplete' : 'Complete'}
-      </button>
-      <button onClick={() => dispatch(deleteTodo(todo.id))}>Delete</button>
+      <div>
+        <button className="btn btn-outline-success btn-sm" onClick={() => dispatch(toggleTodo(todo.id))}>
+          {todo.completed ? 'Uncomplete' : 'Complete'}
+        </button>
+        <button className="btn btn-outline-danger btn-sm" onClick={() => dispatch(deleteTodo(todo.id))}>
+          Delete
+        </button>
+      </div>
     </li>
   );
 };
