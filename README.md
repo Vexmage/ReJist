@@ -1,12 +1,16 @@
 # ReJist
 
-ReJist is a simple To-Do list application built using React and Redux for state management. This app allows users to add, toggle, and delete tasks, with state being managed via Redux. Bootstrap is used for styling.
+ReJist is a simple To-Do list application built using React and Redux for state management. This app allows users to add, toggle, delete tasks, and add a detailed "Jist" (description) for each to-do item. The state is managed via Redux, and Bootstrap is used for styling.
 
 ## Features
 
-- Add new to-do items.
-- Mark to-dos as complete or incomplete.
-- Delete to-dos.
+- Add new to-do items: Quickly add tasks to your to-do list.
+- Mark to-dos as complete or incomplete: Easily toggle the completion status of each task.
+- Delete to-dos: Remove tasks from the list when no longer needed.
+- Jist feature:
+    Each to-do item can have a detailed "Jist" (description) that provides more context about the task.
+    Users can click the "Show Jist" button to view the detailed description.
+    The "Edit Jist" button allows users to modify the description.
 - Simple and responsive UI built with Bootstrap.
 
 ## Project Setup
