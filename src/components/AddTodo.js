@@ -4,13 +4,15 @@ import { addTodo } from '../actions';
 
 const AddTodo = () => {
   const [text, setText] = useState('');
+  const [dueDate, setDueDate] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim()) {
-      dispatch(addTodo(text));
+      dispatch(addTodo(text, dueDate));
       setText('');
+      setDueDate('');
     }
   };
 
@@ -24,10 +26,20 @@ const AddTodo = () => {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
+      </div>
+      <div className="input-group mb-3">
+      <input
+          type="date"
+          className="form-control"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}  // Date picker
+        />
+      </div>
+
         <button type="submit" className="btn btn-primary">
           Add Todo
         </button>
-      </div>
+
     </form>
   );
 };

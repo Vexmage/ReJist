@@ -4,23 +4,24 @@ import { toggleTodo, deleteTodo, updateJist } from '../actions';
 
 const TodoItem = ({ todo }) => {
   const dispatch = useDispatch();
-  
-  const [showJist, setShowJist] = useState(false);  // State to toggle Jist visibility
-  const [isEditingJist, setIsEditingJist] = useState(false);  // State to toggle Jist editing
-  const [jistValue, setJistValue] = useState(todo.jist);  // State to hold the current Jist value
 
-  // Handle updating the Jist
+  const [showJist, setShowJist] = useState(false);
+  const [isEditingJist, setIsEditingJist] = useState(false);
+  const [jistValue, setJistValue] = useState(todo.jist || '');
+
+  const isOverdue = todo.dueDate && new Date(todo.dueDate) < new Date() && !todo.completed;
+  const dueDateStyle = isOverdue ? { color: 'red' } : { color: 'green' };
+
+
   const handleUpdateJist = () => {
     dispatch(updateJist(todo.id, jistValue));
-    setIsEditingJist(false);  // Exit edit mode
+    setIsEditingJist(false);
   };
 
   return (
     <li className={`list-group-item ${todo.completed ? 'list-group-item-success' : ''}`}>
       <div>
-        <span
-          style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
-        >
+        <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
           {todo.text}
         </span>
         <div>
@@ -36,7 +37,14 @@ const TodoItem = ({ todo }) => {
         </div>
       </div>
 
-      {/* Show Jist when showJist is true */}
+      {/* Due Date Section */}
+      {todo.dueDate && (
+        <div style={dueDateStyle}>
+          Due: {new Date(todo.dueDate).toLocaleDateString()} 
+          {isOverdue && <strong> (Overdue)</strong>} {/* Show "Overdue" if the task is past the due date */}
+        </div>
+      )}
+
       {showJist && (
         <div style={{ marginTop: '10px' }}>
           {isEditingJist ? (

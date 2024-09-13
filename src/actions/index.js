@@ -5,9 +5,9 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const UPDATE_JIST = 'UPDATE_JIST';
 
 // Action Creators
-export const addTodo = (text) => ({
+export const addTodo = (text, dueDate) => ({
   type: ADD_TODO,
-  payload: text,
+  payload: { text, dueDate }
 });
 
 export const toggleTodo = (id) => ({

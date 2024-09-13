@@ -11,7 +11,13 @@ const todosReducer = (state = initialState, action) => {
         ...state,
         todos: [
           ...state.todos,
-          { id: Date.now(), text: action.payload, completed: false, jist: '' } // Add default empty jist
+          {
+            id: Date.now(),
+            text: action.payload.text,
+            completed: false,
+            jist: '',
+            dueDate: action.payload.dueDate // Correctly store the dueDate
+          }
         ]
       };
     case TOGGLE_TODO:
