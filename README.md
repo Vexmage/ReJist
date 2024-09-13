@@ -11,6 +11,8 @@ ReJist is a simple To-Do list application built using React and Redux for state 
     Each to-do item can have a detailed "Jist" (description) that provides more context about the task.
     Users can click the "Show Jist" button to view the detailed description.
     The "Edit Jist" button allows users to modify the description.
+- Due dates for tasks: Optionally assign a due date to each task. Tasks with a past due date are marked as "Overdue."
+- Manual sorting by due date: Use the "Sort by Due Date" button to rearrange tasks by their due date.
 - Simple and responsive UI built with Bootstrap.
 
 ## Project Setup
